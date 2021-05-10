@@ -36,8 +36,7 @@ public class ProductController {
     public String buyProduct(@PathVariable("id") int id,
                                         @RequestParam(name = "amount") String amount                        
     ) {
-        Product product = pDao.getOne(id);
-        purchaseService.purchaseProduct(product, amount);
+        purchaseService.purchaseProduct(id, amount);
 
         return "redirect:/";
     }
