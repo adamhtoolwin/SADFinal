@@ -35,8 +35,11 @@ public class ProductController {
     @PostMapping(path = "product/{id}/buy")
     public String buyProduct(@PathVariable("id") int id,
                                         @RequestParam(name = "amount") String amount                        
-    ) {
+    ) throws InterruptedException {
         purchaseService.purchaseProduct(id, amount);
+
+        // wait for asyncs
+        Thread.sleep(100);
 
         return "redirect:/";
     }

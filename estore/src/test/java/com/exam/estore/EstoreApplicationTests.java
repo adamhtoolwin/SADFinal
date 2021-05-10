@@ -32,4 +32,13 @@ class EstoreApplicationTests {
 		Thread.sleep(1000);
 		Assertions.assertEquals(3, pDao.getOne(1).getStock());
 	}
+
+	@Test
+	@Transactional
+	void testOptLock() throws Exception {
+		pService.purchaseProductOpt("1", 1, "1");
+		pService.purchaseProductOpt("2", 1, "1");
+
+		Thread.sleep(1000);
+	}
 }

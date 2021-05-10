@@ -5,7 +5,9 @@ import java.time.LocalTime;
 import javax.transaction.Transactional;
 
 import com.exam.estore.dao.ProductDao;
+import com.exam.estore.dao.ProductODao;
 import com.exam.estore.models.Product;
+import com.exam.estore.models.ProductOptimistic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -17,6 +19,9 @@ public class PurchaseServiceImpl implements PurchaseService{
     @Autowired
     private ProductDao pDao;
 
+    @Autowired
+    private ProductODao poDao;
+
     @Override
 	@Transactional
     @Async
@@ -24,6 +29,23 @@ public class PurchaseServiceImpl implements PurchaseService{
         Product product = pDao.getOne(productID);
         product.setStock(product.getStock() - Integer.parseInt(amount));
         pDao.save(product);
+    }
+
+	@Override
+	@Transactional
+    @Async
+    public void purchaseProductOpt(String threadNo, int productID, String amount) throws InterruptedException {
+		
+        ProductOptimistic product = poDao.findById(productID).orElse(null);
+
+		System.out.println(LocalTime.now() + " <-- Thread " + threadNo + " Buying Product " + product.getName() + " with stock="
+			+ product.getStock() + "-->");
+
+        product.setStock(product.getStock() - Integer.parseInt(amount));
+        poDao.save(product);
+
+		System.out.println(LocalTime.now() + " <-- Thread " + threadNo + " Updated Product " + product.getName() + " with stock="
+			+ product.getStock() + "-->");
     }
 
     @Override
