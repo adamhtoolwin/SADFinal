@@ -47,7 +47,7 @@ pageEncoding="ISO-8859-1"%>
                     <td>
                         <form action="/product/${product.id}/buy" method="POST">
                             Amount: <select name="amount">
-                                <c:forEach begin="1" end="${product.stock}" varStatus="stock">
+                                <c:forEach begin="0" end="${product.stock}" varStatus="stock">
                                     <option value="${stock.index}"><c:out value="${stock.index}"/></option>
                                 </c:forEach>
                               </select>
