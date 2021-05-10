@@ -44,12 +44,13 @@ public class PurchaseServiceImpl implements PurchaseService{
 			return;
 		}
 		
-		System.out.println(LocalTime.now() + " -- Thread " + threadNo + " Acquired write lock on " + product2.getName() + " -->");
+		System.out.println(LocalTime.now() + " -- Thread " + threadNo + " Acquired write lock on " + product2.getName() + " with stock=" + 
+								product2.getStock() + " -->");
         product2.setStock(product2.getStock() - Integer.parseInt(amount));
         pDao.save(product2);
 
-		System.out.println(LocalTime.now() + " -- Thread " + threadNo + " updated product: " + product2 
-				+ " --");
+		System.out.println(LocalTime.now() + " -- Thread " + threadNo + " updated product: " + product2.getName() + " to stock=" +
+				product2.getStock() + " --");
 	}
     
 }
