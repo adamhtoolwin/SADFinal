@@ -28,7 +28,8 @@ class EstoreApplicationTests {
 		pService.purchaseProductWriteLock("1", 1, "1");
 		pService.purchaseProductWriteLock("2", 1, "1");
 		
-		// for some reason need to wait before asserting, otherwise assertion fails and all db transactions rolled back
+		// for some reason need to wait before asserting, 
+		// otherwise assertion fails and all db transactions rolled back
 		Thread.sleep(1000);
 		Assertions.assertEquals(3, pDao.getOne(1).getStock());
 	}

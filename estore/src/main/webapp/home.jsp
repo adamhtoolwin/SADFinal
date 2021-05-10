@@ -41,7 +41,7 @@ pageEncoding="ISO-8859-1"%>
                             <p><c:out value="${category.name}"/></p>
                         </c:forEach>
                     </td>
-                    <td><c:out value="${product.price}"/></td>
+                    <td><c:out value="${product.price_}"/></td>
                     <td><c:out value="${product.stock}"/></td>
 
                     <td>
